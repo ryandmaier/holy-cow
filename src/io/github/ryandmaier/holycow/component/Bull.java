@@ -24,6 +24,8 @@ public class Bull extends Entity {
     speed = 2;
     aRot = 0;
     aSpeed = 0;
+
+    type = "Bull";
   }
 
   public void decreseSpeed() {
@@ -129,12 +131,16 @@ public class Bull extends Entity {
     g2.draw(head);
 
 
-
-
-
-
-
-
-
   }
+
+  public static Bull restore(double x, double y, double facing, double speed, int width, int height) {
+    Bull b = new Bull(width, height);
+    b.xPos = x;
+    b.yPos = y;
+    b.facingAngle = facing;
+    b.speed = speed;
+
+    return b;
+  }
+
 }

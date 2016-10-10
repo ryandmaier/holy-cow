@@ -17,3 +17,5 @@ out/
 *.bluej
 *.iml
 *.ctxt
+
+.DS_Store

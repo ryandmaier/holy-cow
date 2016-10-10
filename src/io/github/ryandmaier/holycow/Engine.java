@@ -9,7 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Adam on 10/1/16.
@@ -18,11 +21,13 @@ public class Engine implements ActionListener{
 
   MainWindow mainWindow;
 
-  ArrayList<Entity> entityList;
+  List<Entity> entityList;
 
   Bull player;
 
   Timer refreshTimer;
+
+  SaveFileManager saveFileManager;
 
 
   public Engine(int width, int height) {
@@ -30,6 +35,8 @@ public class Engine implements ActionListener{
     mainWindow = new MainWindow(width, height);
     mainWindow.addKeyListener(new MovementListener());
     entityList = new ArrayList<>(15);
+
+    saveFileManager = new SaveFileManager(new File("save/save.txt"), width, height);
 
     refreshTimer = new Timer(25, this);
 
@@ -70,6 +77,45 @@ public class Engine implements ActionListener{
     }
   }
 
+  public void saveGame() {
+    System.out.println("Saving game...");
+    try {
+      saveFileManager.writeSave(entityList);
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+      System.exit(-1);
+    }
+  }
+
+  public void loadGame() {
+
+    System.out.println("Loading game...");
+
+    for (Entity e : entityList) {
+      mainWindow.removeEntity(e);
+    }
+
+    player = null;
+
+    try {
+       entityList = saveFileManager.loadSave();
+    } catch (IOException e) {
+      e.printStackTrace();
+      System.exit(-1);
+    }
+
+    for (Entity e : entityList) {
+      mainWindow.addEntity(e);
+      if (e.getType().equals("Bull")) player = (Bull) e;
+    }
+
+    if (player==null) {
+      System.err.println("No player found in save file!!");
+      System.exit(-1);
+    }
+  }
+
   private class MovementListener implements KeyListener {
 
     @Override
@@ -87,6 +133,11 @@ public class Engine implements ActionListener{
         player.startTurnLeft();
       } else if (e.getKeyCode()==KeyEvent.VK_RIGHT) {
         player.startTurnRight();
+      }
+      else if (e.getKeyCode()==KeyEvent.VK_SPACE) {
+        saveGame();
+      } else if (e.getKeyCode()==KeyEvent.VK_L) {
+        loadGame();
       }
     }
 

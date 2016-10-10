@@ -5,6 +5,7 @@ import io.github.ryandmaier.holycow.window.MainWindow;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  * Created by Adam on 10/1/16.
@@ -23,7 +24,8 @@ public class Entity extends JComponent {
   protected double facingAngle;
   protected double speed;
 
-  protected double friction;
+  protected String type;
+
 
   public Entity(int width, int height) {
     this.width = width;
@@ -37,8 +39,9 @@ public class Entity extends JComponent {
 
     speed = 0;
 
-    friction = 0;
     facingAngle = 0;
+
+    type = "Entity";
 
   }
 
@@ -69,6 +72,7 @@ public class Entity extends JComponent {
     g2.setColor(Color.red);
     g2.fill(body);
 
+
   }
 
   public void normalizeLocation() {
@@ -78,4 +82,23 @@ public class Entity extends JComponent {
     else if (yPos < 0) yPos = 0;
   }
 
+  public double getxPos() {
+    return xPos;
+  }
+
+  public double getyPos() {
+    return yPos;
+  }
+
+  public double getFacingAngle() {
+    return facingAngle;
+  }
+
+  public double getSpeed() {
+    return speed;
+  }
+
+  public String getType() {
+    return type;
+  }
 }
