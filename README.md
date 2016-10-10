@@ -1,2 +1,2 @@
-# holy-cow
+# Holy Cow
 This cow is HOLY AMEN PRAISE JESUS HALLALUHIA
