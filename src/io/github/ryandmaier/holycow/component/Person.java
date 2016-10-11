@@ -15,6 +15,8 @@ public class Person extends Entity
     double bodyW;
     double bodyH;
 
+  boolean alive;
+
     private static final double MAX_SPEED = 10;
     private static final double TURN_RADIUS = 5;
     private static final double SPEED_CHANGE = 0.33;
@@ -23,7 +25,7 @@ public class Person extends Entity
     {
         super(width, height);
         
-        facingAngle = 0;
+        facingAngle = -45;
         speed = 2;
 
         bodyX = 50;
@@ -32,6 +34,8 @@ public class Person extends Entity
         bodyH = bodyW*2;
 
       type = "Person";
+
+      alive = true;
 
 
     }
@@ -42,11 +46,15 @@ public class Person extends Entity
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        RoundRectangle2D.Double body = new RoundRectangle2D.Double(bodyX,bodyY,bodyW,bodyH,bodyW/10,bodyH/10);
-        Ellipse2D.Double head = new Ellipse2D.Double(bodyX,bodyY-bodyW,bodyW,bodyW);
+        RoundRectangle2D.Double body = new RoundRectangle2D.Double(xPos - bodyW / 2.0,yPos - bodyH / 2.0,bodyW,bodyH,bodyW/10,bodyH/10);
+        Ellipse2D.Double head = new Ellipse2D.Double(xPos - bodyW / 2.0, yPos-bodyW - bodyH / 2.0,bodyW,bodyW);
 
 
         g2.setColor(new Color(0xFF7654));
+      if (!alive) {
+        g2.setColor(new Color(0x8B8E7F));
+        g2.rotate(180, xPos, yPos);
+      }
         g2.fill(body);
         g2.fill(head);
 
@@ -57,14 +65,29 @@ public class Person extends Entity
         g2.draw(head);
     }
 
-  public static Person restore(double x, double y, double facing, double speed, int width, int height) {
+  public static Person restore(double x, double y, double facing, double speed, boolean alive, int width, int height) {
     Person b = new Person(width, height);
     b.xPos = x;
     b.yPos = y;
     b.facingAngle = facing;
     b.speed = speed;
+    b.alive = alive;
 
     return b;
   }
 
+  @Override
+  public void tick() {
+    super.tick();
+    normalizeLocation();
+  }
+
+  public void die() {
+    alive = false;
+    speed = 0;
+  }
+
+  public boolean isAlive() {
+    return alive;
+  }
 }

@@ -2,6 +2,7 @@ package io.github.ryandmaier.holycow;
 
 import io.github.ryandmaier.holycow.component.Bull;
 import io.github.ryandmaier.holycow.component.Entity;
+import io.github.ryandmaier.holycow.component.Person;
 import io.github.ryandmaier.holycow.window.MainWindow;
 
 import javax.swing.*;
@@ -41,6 +42,7 @@ public class Engine implements ActionListener{
     refreshTimer = new Timer(25, this);
 
     player = new Bull(width, height);
+    player.setPosition(width / 2.0, height / 2.0);
     this.addEntity(player);
 
   }
@@ -65,6 +67,7 @@ public class Engine implements ActionListener{
 
   public void tickEntities() {
     entityList.stream().forEach(Entity::tick);
+    collideBull();
   }
 
   @Override
@@ -72,6 +75,21 @@ public class Engine implements ActionListener{
     if (e.getSource()==refreshTimer) {
       tickEntities();
       renderEntites();
+    }
+  }
+
+  public void collideBull() {
+
+    for (Entity e : entityList) {
+      if (e==player) continue;
+
+      else if (Math.abs(player.getxPos() - e.getxPos()) < 105) {
+        if (Math.abs(player.getyPos() - e.getyPos()) < 105) {
+          if (e instanceof Person) {
+            ((Person) e).die();
+          }
+        }
+      }
     }
   }
 

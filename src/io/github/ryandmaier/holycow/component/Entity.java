@@ -82,6 +82,11 @@ public class Entity extends JComponent {
     else if (yPos < 0) yPos = 0;
   }
 
+  public void setPosition(double x, double y) {
+    xPos = x;
+    yPos = y;
+  }
+
   public double getxPos() {
     return xPos;
   }

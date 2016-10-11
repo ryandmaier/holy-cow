@@ -60,7 +60,11 @@ public class SaveFileManager {
         double y = 0;
         double facing = 0;
         double speed = 0;
-        for (int i = 0; i < 4; i++) {
+        boolean alive = true;
+
+        int numParts = 4;
+        if (line.equals("Person")) numParts = 5;
+        for (int i = 0; i < numParts; i++) {
 
           String subline = reader.readLine();
           StringTokenizer st2 = new StringTokenizer(subline,":");
@@ -73,6 +77,9 @@ public class SaveFileManager {
             facing = Double.valueOf(st2.nextToken());
           } else if (id.equals("speed")) {
             speed = Double.valueOf(st2.nextToken());
+          } else if (id.equals("alive")) {
+            alive = Boolean.valueOf(st2.nextToken());
+            System.out.println(alive);
 
           }
         }
@@ -84,7 +91,7 @@ public class SaveFileManager {
           returnList.add(Entity.restore(x,y,facing,speed,screenWidth,screenHeight));
 
         } else if (line.equals("Person")) {
-          returnList.add(Person.restore(x,y,facing,speed,screenWidth,screenHeight));
+          returnList.add(Person.restore(x,y,facing,speed, alive, screenWidth,screenHeight));
 
         }
 
@@ -126,6 +133,7 @@ public class SaveFileManager {
       writer.write("y:"+e.getyPos()+'\n');
       writer.write("facing:"+e.getFacingAngle()+'\n');
       writer.write("speed:"+e.getSpeed()+'\n');
+      if (e instanceof Person) writer.write("alive:"+((Person) e).isAlive()+'\n');
     }
 
     writer.close();
