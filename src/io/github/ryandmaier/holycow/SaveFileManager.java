@@ -2,6 +2,7 @@ package io.github.ryandmaier.holycow;
 
 import io.github.ryandmaier.holycow.component.Bull;
 import io.github.ryandmaier.holycow.component.Entity;
+import io.github.ryandmaier.holycow.component.Person;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -49,15 +50,12 @@ public class SaveFileManager {
   public List<Entity> loadSave() throws IOException {
 
     String line = null;
-    StringTokenizer st;
 
     ArrayList<Entity> returnList = new ArrayList<>();
 
 
     while ((line = reader.readLine()) != null) {
-      st = new StringTokenizer(line, ":");
-      st.nextToken();
-      if (st.nextToken().equals("Bull")) {
+      if (line.equals("Bull") || line.equals("Entity") || line.equals("Person")) {
         double x = 0;
         double y = 0;
         double facing = 0;
@@ -79,7 +77,17 @@ public class SaveFileManager {
           }
         }
 
-        returnList.add(Bull.restore(x,y,facing,speed,screenWidth,screenHeight));
+        if (line.equals("Bull")) {
+          returnList.add(Bull.restore(x,y,facing,speed,screenWidth,screenHeight));
+
+        } else if (line.equals("Entity")) {
+          returnList.add(Entity.restore(x,y,facing,speed,screenWidth,screenHeight));
+
+        } else if (line.equals("Person")) {
+          returnList.add(Person.restore(x,y,facing,speed,screenWidth,screenHeight));
+
+        }
+
 
       }
 
@@ -113,7 +121,7 @@ public class SaveFileManager {
 
     for (int i = 0; i < eList.size(); i++) {
       Entity e = eList.get(i);
-      writer.write ("Type:"+e.getType()+'\n');
+      writer.write (e.getType()+'\n');
       writer.write("x:"+e.getxPos()+'\n');
       writer.write("y:"+e.getyPos()+'\n');
       writer.write("facing:"+e.getFacingAngle()+'\n');

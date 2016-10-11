@@ -101,4 +101,14 @@ public class Entity extends JComponent {
   public String getType() {
     return type;
   }
+
+  public static Entity restore(double x, double y, double facing, double speed, int width, int height) {
+    Entity b = new Entity(width, height);
+    b.xPos = x;
+    b.yPos = y;
+    b.facingAngle = facing;
+    b.speed = speed;
+
+    return b;
+  }
 }

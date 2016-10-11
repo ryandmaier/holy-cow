@@ -5,6 +5,9 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * Created by Ryan Maier on 10/10/16.
+ */
 public class Person extends Entity
 {
     double bodyX;
@@ -27,6 +30,8 @@ public class Person extends Entity
         bodyY = 50;
         bodyW = 20;
         bodyH = bodyW*2;
+
+      type = "Person";
 
 
     }
@@ -51,5 +56,15 @@ public class Person extends Entity
         g2.draw(body);
         g2.draw(head);
     }
+
+  public static Person restore(double x, double y, double facing, double speed, int width, int height) {
+    Person b = new Person(width, height);
+    b.xPos = x;
+    b.yPos = y;
+    b.facingAngle = facing;
+    b.speed = speed;
+
+    return b;
+  }
 
 }

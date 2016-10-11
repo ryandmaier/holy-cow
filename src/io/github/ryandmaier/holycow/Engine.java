@@ -60,9 +60,7 @@ public class Engine implements ActionListener{
   }
 
   public void renderEntites() {
-    for (Entity e : entityList) {
-      e.repaint();
-    }
+    entityList.forEach(Entity::repaint);
   }
 
   public void tickEntities() {
@@ -79,6 +77,7 @@ public class Engine implements ActionListener{
 
   public void saveGame() {
     System.out.println("Saving game...");
+    //System.out.println("EntityList size = "+entityList.size());
     try {
       saveFileManager.writeSave(entityList);
     }
