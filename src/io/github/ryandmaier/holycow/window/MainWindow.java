@@ -49,6 +49,7 @@ public class MainWindow extends JFrame {
     //mainView.setBackground(new Color(81, 159, 45));
 
     BackgroundComponent bg = new BackgroundComponent(width, height);
+    bg.setPreferredSize(new Dimension(width, height));
     bg.setBounds(0,0, width, height);
     mainView.add(bg,1);
 

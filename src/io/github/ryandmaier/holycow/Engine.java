@@ -76,7 +76,7 @@ public class Engine implements ActionListener{
 
     nextRound();
 
-    System.out.println("People left:" +peopleLeft);
+    //System.out.println("People left:" +peopleLeft);
 
   }
 
