@@ -1,10 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 Type:Bull
 x:540.3219280484235
 y:327.03152632837043
 facing:175.0
 speed:10.0
 =======
+=======
+>>>>>>> origin/master
 Bull
 x:554.0441080588066
 y:397.21434362560916
@@ -16,4 +19,7 @@ y:354.198051533948
 facing:315.0
 speed:2.0
 alive:true
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master

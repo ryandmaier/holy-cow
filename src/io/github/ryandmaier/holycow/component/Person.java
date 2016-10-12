@@ -21,6 +21,9 @@ public class Person extends Entity
 
   boolean alive;
 
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
     private static final double MAX_SPEED = 10;
     private static final double TURN_RADIUS = 5;
@@ -42,6 +45,12 @@ public class Person extends Entity
         bodyH = bodyW*2;
 
       type = "Person";
+<<<<<<< HEAD
+=======
+
+      alive = true;
+
+>>>>>>> origin/master
 
       alive = true;
 
@@ -55,8 +64,11 @@ public class Person extends Entity
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         RoundedRectangle2D.Double() body = 
 =======
+=======
+>>>>>>> origin/master
         RoundRectangle2D.Double body = new RoundRectangle2D.Double(xPos - bodyW / 2.0,yPos - bodyH / 2.0,bodyW,bodyH,bodyW/10,bodyH/10);
         Ellipse2D.Double head = new Ellipse2D.Double(xPos - bodyW / 2.0, yPos-bodyW - bodyH / 2.0,bodyW,bodyW);
 
