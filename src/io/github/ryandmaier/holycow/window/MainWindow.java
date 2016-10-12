@@ -59,6 +59,7 @@ public class MainWindow extends JFrame {
     //mainView.setBackground(new Color(81, 159, 45));
 
     BackgroundComponent bg = new BackgroundComponent(width, height);
+    bg.setPreferredSize(new Dimension(width, height));
     bg.setBounds(0,0, width, height);
     mainView.add(bg,1);
 
@@ -85,16 +86,26 @@ public class MainWindow extends JFrame {
   {
     pointValue++;
     points.setText("Points: " + pointValue);
-    this.add(points, BorderLayout.NORTH);      
+    this.add(points, BorderLayout.NORTH);  
+    this.pack();
   }
   
   public void pauseMenu()
   {
       this.add(pause, BorderLayout.SOUTH);
+      this.pack();
   }
   public void endPause()
   {
       this.remove(pause);
+  }
+  
+  public int getPoints() {
+    return pointValue;
+  }
+
+  public void setPointValue(int pointValue) {
+    this.pointValue = pointValue;
   }
 }
 

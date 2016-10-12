@@ -76,7 +76,7 @@ public class Engine implements ActionListener{
 
     nextRound();
 
-    System.out.println("People left:" +peopleLeft);
+    //System.out.println("People left:" +peopleLeft);
 
   }
 
@@ -169,7 +169,7 @@ public class Engine implements ActionListener{
     System.out.println("Saving game...");
     //System.out.println("EntityList size = "+entityList.size());
     try {
-      saveFileManager.writeSave(entityList);
+      saveFileManager.writeSave(entityList,mainWindow.getPoints());
     }
     catch (IOException e) {
       e.printStackTrace();
@@ -188,7 +188,7 @@ public class Engine implements ActionListener{
     player = null;
 
     try {
-       entityList = saveFileManager.loadSave();
+       entityList = saveFileManager.loadSave(mainWindow);
     } catch (IOException e) {
       e.printStackTrace();
       System.exit(-1);
