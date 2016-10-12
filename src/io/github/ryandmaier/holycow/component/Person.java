@@ -11,20 +11,15 @@ import java.util.Random;
  */
 public class Person extends Entity
 {
-<<<<<<< HEAD
-//<<<<<<< HEAD
-    double aRot;
-    double aSpeed;
-//=======
 
-=======
+
 
     double aRot;
     double aSpeed;
 
     double bodyX;
     double bodyY;
->>>>>>> origin/master
+
     double bodyW;
     double bodyH;
 
@@ -37,15 +32,8 @@ public class Person extends Entity
 
   boolean alive;
 
-<<<<<<< HEAD
     Random rand;
 
-//<<<<<<< HEAD
-//>>>>>>> origin/master
-//=======
-//>>>>>>> origin/master
-=======
->>>>>>> origin/master
     private static final double MAX_SPEED = 10;
     private static final double TURN_RADIUS = 5;
     private static final double SPEED_CHANGE = 0.33;
@@ -56,16 +44,14 @@ public class Person extends Entity
         
         facingAngle = -45;
         speed = 2;
-<<<<<<< HEAD
-//<<<<<<< HEAD
-        aRot = 0;
-        aSpeed = 0;
-//=======
-=======
 
         aRot = 0;
         aSpeed = 0;
->>>>>>> origin/master
+
+
+        aRot = 0;
+        aSpeed = 0;
+
 
         xPos = 250;
         yPos = 250;
@@ -80,25 +66,13 @@ public class Person extends Entity
         rand = new Random();
 
       type = "Person";
-<<<<<<< HEAD
-//<<<<<<< HEAD
-//=======
+
 
       alive = true;
 
-//>>>>>>> origin/master
-=======
 
       alive = true;
 
->>>>>>> origin/master
-
-
-<<<<<<< HEAD
-
-//>>>>>>> origin/master
-=======
->>>>>>> origin/master
     }
     
     protected void paintComponent(Graphics g)
@@ -106,16 +80,7 @@ public class Person extends Entity
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-<<<<<<< HEAD
-//<<<<<<< HEAD
-//<<<<<<< HEAD
-        //RoundedRectangle2D.Double() body =
-//=======
-//=======
-//>>>>>>> origin/master
-=======
 
->>>>>>> origin/master
         RoundRectangle2D.Double body = new RoundRectangle2D.Double(xPos - bodyW / 2.0,yPos - bodyH / 2.0,bodyW,bodyH,bodyW/10,bodyH/10);
         Ellipse2D.Double head = new Ellipse2D.Double(xPos - bodyW / 2.0, yPos-bodyW - bodyH / 2.0,bodyW,bodyW);
 
@@ -133,11 +98,7 @@ public class Person extends Entity
         g2.setColor(Color.BLACK);
         g2.draw(body);
         g2.draw(head);
-<<<<<<< HEAD
-//>>>>>>> origin/master
-=======
 
->>>>>>> origin/master
     }
 
   public static Person restore(double x, double y, double facing, double speed, boolean alive, int width, int height) {

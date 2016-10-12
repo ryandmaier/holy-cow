@@ -7,11 +7,5 @@ Person
 x:387.41125496954476
 y:375.4112549695446
 facing:315.0
-<<<<<<< HEAD
 speed:0.0
 alive:false
-=======
-speed:2.0
-alive:true
-
->>>>>>> origin/master
