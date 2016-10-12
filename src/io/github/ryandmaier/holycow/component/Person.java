@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Random;
 
 /**
  * Created by Ryan Maier on 10/10/16.
@@ -11,19 +12,32 @@ import java.awt.geom.RoundRectangle2D;
 public class Person extends Entity
 {
 
+
+
     double aRot;
     double aSpeed;
 
     double bodyX;
     double bodyY;
+
     double bodyW;
     double bodyH;
 
+    double dSpeedX;
+    double ddSpeedX;
+    double dSpeedY;
+    double ddSpeedY;
+    double speedX;
+    double speedY;
+
   boolean alive;
+
+    Random rand;
 
     private static final double MAX_SPEED = 10;
     private static final double TURN_RADIUS = 5;
     private static final double SPEED_CHANGE = 0.33;
+
     public Person(int width, int height)
     {
         super(width, height);
@@ -34,16 +48,30 @@ public class Person extends Entity
         aRot = 0;
         aSpeed = 0;
 
-        bodyX = 50;
-        bodyY = 50;
+
+        aRot = 0;
+        aSpeed = 0;
+
+
+        xPos = 250;
+        yPos = 250;
         bodyW = 20;
         bodyH = bodyW*2;
 
+        dSpeedX = 0;
+        ddSpeedX = 0;
+        dSpeedY = 0;
+        ddSpeedY = 0;
+
+        rand = new Random();
+
       type = "Person";
+
 
       alive = true;
 
 
+      alive = true;
 
     }
     
@@ -86,13 +114,52 @@ public class Person extends Entity
 
   @Override
   public void tick() {
-    super.tick();
-    normalizeLocation();
+      //dSpeedX += (rand.nextDouble()-.5)/10;
+      //dSpeedY += (rand.nextDouble()-.5)/10;
+
+      if(alive) {
+          speedX += (rand.nextDouble() - .5) - speedX / 200;
+          speedY += (rand.nextDouble() - .5) * 1.5 - speedY / 200;
+
+          int changeX = rand.nextInt(1000);
+          int changeY = rand.nextInt(1000);
+          if (400 - xPos > 0 && speedX < 0) {
+              if (changeX % (int) (1000 / (400 - xPos)) == 0) speedX = speedX * -1;
+          }
+          if (400 - xPos < 0 && speedX > 0) {
+              if (changeX % (int) (1000 / (400 - xPos)) == 0) speedX = speedX * -1;
+          }
+          if (300 - yPos > 0 && speedY < 0) {
+              if (changeY % (int) (1000 / (300 - yPos)) == 0) speedY = speedY * -1;
+          }
+          if (300 - yPos < 0 && speedY > 0) {
+              if (changeY % (int) (1000 / (300 - yPos)) == 0) speedY = speedY * -1;
+          }
+
+
+          if (xPos >= upperxBound) speedX *= -1;
+          else if (xPos <= loweryBound) speedX *= -1;
+          if (yPos >= upperyBound) speedY *= -1;
+          else if (yPos <= loweryBound) speedY *= -1;
+
+          //super.tick();
+
+          while (facingAngle < 0) facingAngle += 360;
+          while (facingAngle > 360) facingAngle -= 360;
+          xPos += speedX;
+          yPos += speedY;
+
+          normalizeLocation();
+
+      }
   }
 
   public void die() {
+
     alive = false;
     speed = 0;
+      dSpeedX = 0;
+      dSpeedY = 0;
   }
 
   public boolean isAlive() {

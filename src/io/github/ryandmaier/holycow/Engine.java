@@ -59,10 +59,15 @@ public class Engine implements ActionListener{
     refreshTimer.start();
     round = 1;
 
+    int max = 7;
+
+    if (round < max) max = round;
+    
 
   }
 
   public void nextRound() {
+    round++;
 
   }
 
