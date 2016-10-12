@@ -26,6 +26,13 @@ public class Entity extends JComponent {
 
   protected String type;
 
+  protected double upperxBound;
+  protected double upperyBound;
+  protected double lowerxBound;
+  protected double loweryBound;
+
+  private static final double PERCENT_BOUNDARY = 0.06;
+
 
   public Entity(int width, int height) {
     this.width = width;
@@ -42,6 +49,11 @@ public class Entity extends JComponent {
     facingAngle = 0;
 
     type = "Entity";
+
+    upperxBound = width * (1-PERCENT_BOUNDARY);
+    upperyBound = height * (1-PERCENT_BOUNDARY);
+    lowerxBound = width * PERCENT_BOUNDARY;
+    loweryBound = height * PERCENT_BOUNDARY;
 
   }
 
@@ -76,10 +88,10 @@ public class Entity extends JComponent {
   }
 
   public void normalizeLocation() {
-    if (xPos > width) xPos = width;
-    else if (xPos < 0) xPos = 0;
-    if (yPos > height) yPos = height;
-    else if (yPos < 0) yPos = 0;
+    if (xPos > upperxBound) xPos = upperxBound;
+    else if (xPos < loweryBound) xPos = lowerxBound;
+    if (yPos > upperyBound) yPos = upperyBound;
+    else if (yPos < loweryBound) yPos = loweryBound;
   }
 
   public void setPosition(double x, double y) {

@@ -30,8 +30,16 @@ public class Engine implements ActionListener{
 
   SaveFileManager saveFileManager;
 
+  boolean running = true;
+
+  int peopleLeft;
+
+  int round = 0;
+
 
   public Engine(int width, int height) {
+
+    peopleLeft = 0;
 
     mainWindow = new MainWindow(width, height);
     mainWindow.addKeyListener(new MovementListener());
@@ -49,6 +57,13 @@ public class Engine implements ActionListener{
 
   public void start() {
     refreshTimer.start();
+    round = 1;
+
+
+  }
+
+  public void nextRound() {
+    
   }
 
   public void addEntity(Entity e) {
@@ -83,8 +98,8 @@ public class Engine implements ActionListener{
     for (Entity e : entityList) {
       if (e==player) continue;
 
-      else if (Math.abs(player.getxPos() - e.getxPos()) < 105) {
-        if (Math.abs(player.getyPos() - e.getyPos()) < 105) {
+      else if (Math.abs(player.getxPos() - e.getxPos()) < 80) {
+        if (Math.abs(player.getyPos() - e.getyPos()) < 80) {
           if (e instanceof Person) {
             ((Person) e).die();
           }
@@ -133,6 +148,17 @@ public class Engine implements ActionListener{
     }
   }
 
+  public void togglePause() {
+    if (running) {
+      refreshTimer.stop();
+      running = false;
+    }
+    else {
+      refreshTimer.restart();
+      running = true;
+    }
+  }
+
   private class MovementListener implements KeyListener {
 
     @Override
@@ -155,6 +181,9 @@ public class Engine implements ActionListener{
         saveGame();
       } else if (e.getKeyCode()==KeyEvent.VK_L) {
         loadGame();
+      }
+      else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+        togglePause();
       }
     }
 

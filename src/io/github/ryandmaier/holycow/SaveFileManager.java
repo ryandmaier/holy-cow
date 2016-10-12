@@ -79,7 +79,7 @@ public class SaveFileManager {
             speed = Double.valueOf(st2.nextToken());
           } else if (id.equals("alive")) {
             alive = Boolean.valueOf(st2.nextToken());
-            System.out.println(alive);
+            //System.out.println(alive);
 
           }
         }
