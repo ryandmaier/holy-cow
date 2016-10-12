@@ -57,26 +57,26 @@ public class Bull extends Entity {
 
   @Override
   public void normalizeLocation() {
-    if (xPos > width) {
-      xPos = width;
+    if (xPos > upperxBound) {
+      xPos = upperxBound;
       if (facingAngle < 45 || facingAngle > 315) {
         speed = 0;
       }
     }
-    else if (xPos < 0) {
-      xPos = 0;
+    else if (xPos < lowerxBound) {
+      xPos =  lowerxBound;
       if (facingAngle > 135 && facingAngle < 225) {
         speed = 0;
       }
     }
-    if (yPos > height) {
-      yPos = height;
+    if (yPos > upperyBound) {
+      yPos = upperyBound;
       if (facingAngle > 225 && facingAngle < 315) {
         speed = 0;
       }
     }
-    else if (yPos < 0) {
-      yPos = 0;
+    else if (yPos < loweryBound) {
+      yPos =  loweryBound;
       if (facingAngle > 45 && facingAngle < 135) {
         speed = 0;
       }

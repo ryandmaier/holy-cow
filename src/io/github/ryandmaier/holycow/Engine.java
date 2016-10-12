@@ -2,6 +2,7 @@ package io.github.ryandmaier.holycow;
 
 import io.github.ryandmaier.holycow.component.Bull;
 import io.github.ryandmaier.holycow.component.Entity;
+import io.github.ryandmaier.holycow.component.Person;
 import io.github.ryandmaier.holycow.window.MainWindow;
 
 import javax.swing.*;
@@ -29,8 +30,16 @@ public class Engine implements ActionListener{
 
   SaveFileManager saveFileManager;
 
+  boolean running = true;
+
+  int peopleLeft;
+
+  int round = 0;
+
 
   public Engine(int width, int height) {
+
+    peopleLeft = 0;
 
     mainWindow = new MainWindow(width, height);
     mainWindow.addKeyListener(new MovementListener());
@@ -41,12 +50,20 @@ public class Engine implements ActionListener{
     refreshTimer = new Timer(25, this);
 
     player = new Bull(width, height);
+    player.setPosition(width / 2.0, height / 2.0);
     this.addEntity(player);
 
   }
 
   public void start() {
     refreshTimer.start();
+    round = 1;
+
+
+  }
+
+  public void nextRound() {
+    
   }
 
   public void addEntity(Entity e) {
@@ -60,13 +77,12 @@ public class Engine implements ActionListener{
   }
 
   public void renderEntites() {
-    for (Entity e : entityList) {
-      e.repaint();
-    }
+    entityList.forEach(Entity::repaint);
   }
 
   public void tickEntities() {
     entityList.stream().forEach(Entity::tick);
+    collideBull();
   }
 
   @Override
@@ -77,8 +93,24 @@ public class Engine implements ActionListener{
     }
   }
 
+  public void collideBull() {
+
+    for (Entity e : entityList) {
+      if (e==player) continue;
+
+      else if (Math.abs(player.getxPos() - e.getxPos()) < 80) {
+        if (Math.abs(player.getyPos() - e.getyPos()) < 80) {
+          if (e instanceof Person) {
+            ((Person) e).die();
+          }
+        }
+      }
+    }
+  }
+
   public void saveGame() {
     System.out.println("Saving game...");
+    //System.out.println("EntityList size = "+entityList.size());
     try {
       saveFileManager.writeSave(entityList);
     }
@@ -116,6 +148,17 @@ public class Engine implements ActionListener{
     }
   }
 
+  public void togglePause() {
+    if (running) {
+      refreshTimer.stop();
+      running = false;
+    }
+    else {
+      refreshTimer.restart();
+      running = true;
+    }
+  }
+
   private class MovementListener implements KeyListener {
 
     @Override
@@ -138,6 +181,9 @@ public class Engine implements ActionListener{
         saveGame();
       } else if (e.getKeyCode()==KeyEvent.VK_L) {
         loadGame();
+      }
+      else if (e.getKeyCode()==KeyEvent.VK_ESCAPE) {
+        togglePause();
       }
     }
 
