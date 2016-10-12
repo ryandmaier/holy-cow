@@ -28,7 +28,7 @@ public class MainWindow extends JFrame {
     this.height = height;
 
     pointValue=0;
-    points = new JLabel("Points: " + pointValue);
+    points = new JLabel("Points: " + pointValue + " (Press esc to pause)");
     points.setVisible(true);
     //points.setOpaque(true);
     points.setForeground(Color.BLUE);           
