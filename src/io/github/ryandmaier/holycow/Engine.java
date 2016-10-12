@@ -207,12 +207,17 @@ public class Engine implements ActionListener{
 
   public void togglePause() {
     if (running) {
+      mainWindow.pauseMenu();
+      mainWindow.repaint();     
       refreshTimer.stop();
       running = false;
+
     }
     else {
       refreshTimer.restart();
       running = true;
+      mainWindow.endPause();
+      mainWindow.repaint();
     }
   }
 

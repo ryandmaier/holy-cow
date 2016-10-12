@@ -18,6 +18,7 @@ public class MainWindow extends JFrame {
   int width;
   int height;
   JLabel points;
+  JLabel pause;
   int pointValue;
 
   public MainWindow(int width, int height) {
@@ -35,6 +36,15 @@ public class MainWindow extends JFrame {
     points.setFont(new Font("newFont",0,30));
     points.setSize(points.getPreferredSize());
 
+    pause = new JLabel("This game is now paused. Controls: arrow keys (except DOWN) to move bull. Press up arrow to move faster. Kill all the people. Press esc to resume.");
+    pause.setVisible(true);
+    //points.setOpaque(true);
+    pause.setForeground(Color.BLUE);           
+    pause.setLocation(10,height/2);
+    pause.setFont(new Font("newFont",0,10));
+    pause.setSize(pause.getPreferredSize());
+    
+    
     initWindow();
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     this.setVisible(true);
@@ -56,7 +66,8 @@ public class MainWindow extends JFrame {
     
     this.add(points, BorderLayout.NORTH);
     this.add(mainView, BorderLayout.CENTER);
-
+      //this.add(pause, BorderLayout.SOUTH);
+      
     this.pack();
     this.setLocationRelativeTo(null);
   }
@@ -75,6 +86,15 @@ public class MainWindow extends JFrame {
     pointValue++;
     points.setText("Points: " + pointValue);
     this.add(points, BorderLayout.NORTH);      
+  }
+  
+  public void pauseMenu()
+  {
+      this.add(pause, BorderLayout.SOUTH);
+  }
+  public void endPause()
+  {
+      this.remove(pause);
   }
 }
 
