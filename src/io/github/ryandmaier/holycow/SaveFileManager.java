@@ -3,6 +3,7 @@ package io.github.ryandmaier.holycow;
 import io.github.ryandmaier.holycow.component.Bull;
 import io.github.ryandmaier.holycow.component.Entity;
 import io.github.ryandmaier.holycow.component.Person;
+import io.github.ryandmaier.holycow.window.MainWindow;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -47,12 +48,18 @@ public class SaveFileManager {
   /**
    * @return list of all entities in the save file, the first one is the player
    */
-  public List<Entity> loadSave() throws IOException {
+  public List<Entity> loadSave(MainWindow mainWindow) throws IOException {
 
     String line = null;
 
     ArrayList<Entity> returnList = new ArrayList<>();
 
+    String score = reader.readLine();
+    StringTokenizer scoreTokenizer = new StringTokenizer(score,":");
+    scoreTokenizer.nextToken();
+
+    mainWindow.setPointValue(Integer.valueOf(scoreTokenizer.nextToken())-1);
+    mainWindow.addPoints();
 
     while ((line = reader.readLine()) != null) {
       if (line.equals("Bull") || line.equals("Entity") || line.equals("Person")) {
@@ -123,8 +130,11 @@ public class SaveFileManager {
     reader = new BufferedReader(inputStreamReader);
   }
 
-  public void writeSave(List<Entity> eList) throws IOException {
+  public void writeSave(List<Entity> eList, int score) throws IOException {
     BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+
+
+    writer.write("Score:"+score+'\n');
 
     for (int i = 0; i < eList.size(); i++) {
       Entity e = eList.get(i);

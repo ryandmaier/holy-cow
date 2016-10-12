@@ -76,5 +76,13 @@ public class MainWindow extends JFrame {
     points.setText("Points: " + pointValue);
     this.add(points, BorderLayout.NORTH);      
   }
+
+  public int getPoints() {
+    return pointValue;
+  }
+
+  public void setPointValue(int pointValue) {
+    this.pointValue = pointValue;
+  }
 }
 
