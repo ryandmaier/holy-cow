@@ -10,10 +10,10 @@ import java.awt.geom.RoundRectangle2D;
  */
 public class Person extends Entity
 {
-<<<<<<< HEAD
+
     double aRot;
     double aSpeed;
-=======
+
     double bodyX;
     double bodyY;
     double bodyW;
@@ -21,10 +21,6 @@ public class Person extends Entity
 
   boolean alive;
 
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
     private static final double MAX_SPEED = 10;
     private static final double TURN_RADIUS = 5;
     private static final double SPEED_CHANGE = 0.33;
@@ -34,10 +30,9 @@ public class Person extends Entity
         
         facingAngle = -45;
         speed = 2;
-<<<<<<< HEAD
+
         aRot = 0;
         aSpeed = 0;
-=======
 
         bodyX = 50;
         bodyY = 50;
@@ -45,17 +40,11 @@ public class Person extends Entity
         bodyH = bodyW*2;
 
       type = "Person";
-<<<<<<< HEAD
-=======
-
-      alive = true;
-
->>>>>>> origin/master
 
       alive = true;
 
 
->>>>>>> origin/master
+
     }
     
     protected void paintComponent(Graphics g)
@@ -63,12 +52,7 @@ public class Person extends Entity
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        RoundedRectangle2D.Double() body = 
-=======
-=======
->>>>>>> origin/master
+
         RoundRectangle2D.Double body = new RoundRectangle2D.Double(xPos - bodyW / 2.0,yPos - bodyH / 2.0,bodyW,bodyH,bodyW/10,bodyH/10);
         Ellipse2D.Double head = new Ellipse2D.Double(xPos - bodyW / 2.0, yPos-bodyW - bodyH / 2.0,bodyW,bodyW);
 
@@ -86,7 +70,7 @@ public class Person extends Entity
         g2.setColor(Color.BLACK);
         g2.draw(body);
         g2.draw(head);
->>>>>>> origin/master
+
     }
 
   public static Person restore(double x, double y, double facing, double speed, boolean alive, int width, int height) {
