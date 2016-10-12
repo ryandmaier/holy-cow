@@ -161,8 +161,8 @@ public class Engine implements ActionListener{
     if (!p.isAlive()) return;
     p.die();
     peopleLeft--;
-    System.out.println("Round: "+round+". People left: "+peopleLeft);
-
+    //System.out.println("Round: "+round+". People left: "+peopleLeft);
+    mainWindow.addPoints();
   }
 
   public void saveGame() {
