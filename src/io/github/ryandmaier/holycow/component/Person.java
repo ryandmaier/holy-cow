@@ -12,8 +12,6 @@ import java.util.Random;
 public class Person extends Entity
 {
 
-
-
     double aRot;
     double aSpeed;
 

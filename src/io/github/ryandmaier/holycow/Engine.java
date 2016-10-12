@@ -14,6 +14,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by Adam on 10/1/16.
@@ -36,8 +38,21 @@ public class Engine implements ActionListener{
 
   int round = 0;
 
+  int width;
+  int height;
+
+  Random randGen;
+
+  private static final int MAX_PEOPLE = 7;
+
 
   public Engine(int width, int height) {
+
+
+    this.width = width;
+    this.height = height;
+
+    randGen = new Random();
 
     peopleLeft = 0;
 
@@ -57,17 +72,44 @@ public class Engine implements ActionListener{
 
   public void start() {
     refreshTimer.start();
-    round = 1;
+    round = 0;
 
-    int max = 7;
+    nextRound();
 
-    if (round < max) max = round;
-    
+    System.out.println("People left:" +peopleLeft);
 
   }
 
   public void nextRound() {
+
+    ArrayList<Entity> tempList = entityList.stream().collect(Collectors.toCollection(ArrayList::new));
+
+    /*
+    tempList.stream().forEach(e -> {
+      if (e instanceof Person) this.removeEntity(e);
+    });
+    */
+
+    for (Entity e : tempList) {
+      if (e instanceof Person) this.removeEntity(e);
+    }
+
     round++;
+
+    int max = MAX_PEOPLE;
+
+    if (round < max) max = round;
+
+    for (int i = 0; i < max; i++) {
+
+      Person p = new Person(width, height);
+      p.setPosition(randGen.nextInt(width), randGen.nextInt(height));
+
+      this.addEntity(p);
+
+      peopleLeft++;
+
+    }
 
   }
 
@@ -86,7 +128,9 @@ public class Engine implements ActionListener{
   }
 
   public void tickEntities() {
-    entityList.stream().forEach(Entity::tick);
+    for (Entity e : entityList) {
+      e.tick();
+    }
     collideBull();
   }
 
@@ -95,6 +139,7 @@ public class Engine implements ActionListener{
     if (e.getSource()==refreshTimer) {
       tickEntities();
       renderEntites();
+      if (peopleLeft <= 0) nextRound();
     }
   }
 
@@ -102,15 +147,22 @@ public class Engine implements ActionListener{
 
     for (Entity e : entityList) {
       if (e==player) continue;
-
-      else if (Math.abs(player.getxPos() - e.getxPos()) < 80) {
-        if (Math.abs(player.getyPos() - e.getyPos()) < 80) {
+      if (Math.abs(player.getxPos() - e.getxPos()) < 40) {
+        if (Math.abs(player.getyPos() - e.getyPos()) < 40) {
           if (e instanceof Person) {
-            ((Person) e).die();
+            killPerson((Person) e);
           }
         }
       }
     }
+  }
+
+  private void killPerson(Person p) {
+    if (!p.isAlive()) return;
+    p.die();
+    peopleLeft--;
+    System.out.println("Round: "+round+". People left: "+peopleLeft);
+
   }
 
   public void saveGame() {

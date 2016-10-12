@@ -8,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
       Engine e = new Engine(800, 600);
-        e.addEntity(new Person(800,600));
       e.start();
     }
 }
