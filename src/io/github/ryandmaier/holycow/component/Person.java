@@ -117,43 +117,49 @@ public class Person extends Entity
       //dSpeedX += (rand.nextDouble()-.5)/10;
       //dSpeedY += (rand.nextDouble()-.5)/10;
 
-      speedX += (rand.nextDouble()-.5)-speedX/200;
-      speedY += (rand.nextDouble()-.5)*1.5-speedY/200;
+      if(alive) {
+          speedX += (rand.nextDouble() - .5) - speedX / 200;
+          speedY += (rand.nextDouble() - .5) * 1.5 - speedY / 200;
 
-      int changeX = rand.nextInt(1000);
-      int changeY = rand.nextInt(1000);
-      if(400-xPos>0&&speedX<0) {
-          if (changeX % (int) (1000/(400 - xPos)) == 0) speedX = speedX * -1;
+          int changeX = rand.nextInt(1000);
+          int changeY = rand.nextInt(1000);
+          if (400 - xPos > 0 && speedX < 0) {
+              if (changeX % (int) (1000 / (400 - xPos)) == 0) speedX = speedX * -1;
+          }
+          if (400 - xPos < 0 && speedX > 0) {
+              if (changeX % (int) (1000 / (400 - xPos)) == 0) speedX = speedX * -1;
+          }
+          if (300 - yPos > 0 && speedY < 0) {
+              if (changeY % (int) (1000 / (300 - yPos)) == 0) speedY = speedY * -1;
+          }
+          if (300 - yPos < 0 && speedY > 0) {
+              if (changeY % (int) (1000 / (300 - yPos)) == 0) speedY = speedY * -1;
+          }
+
+
+          if (xPos >= upperxBound) speedX *= -1;
+          else if (xPos <= loweryBound) speedX *= -1;
+          if (yPos >= upperyBound) speedY *= -1;
+          else if (yPos <= loweryBound) speedY *= -1;
+
+          //super.tick();
+
+          while (facingAngle < 0) facingAngle += 360;
+          while (facingAngle > 360) facingAngle -= 360;
+          xPos += speedX;
+          yPos += speedY;
+
+          normalizeLocation();
+
       }
-      if(400-xPos<0&&speedX>0) {
-          if (changeX % (int) (1000/(400 - xPos)) == 0) speedX = speedX * -1;
-      }
-      if(300-yPos>0&&speedY<0) {
-          if (changeY % (int) (1000/(300 - yPos)) == 0) speedY = speedY * -1;
-      }
-      if(300-yPos<0&&speedY>0) {
-          if (changeY % (int) (1000/(300 - yPos)) == 0) speedY = speedY * -1;
-      }
-
-
-      if (xPos >= upperxBound) speedX*=-1;
-      else if (xPos <= loweryBound) speedX*=-1;
-      if (yPos >= upperyBound) speedY*=-1;
-      else if (yPos <= loweryBound) speedY*=-1;
-
-      //super.tick();
-
-      while (facingAngle < 0) facingAngle += 360;
-      while (facingAngle > 360) facingAngle -= 360;
-      xPos += speedX;
-      yPos += speedY;
-
-      normalizeLocation();
   }
 
   public void die() {
+
     alive = false;
     speed = 0;
+      dSpeedX = 0;
+      dSpeedY = 0;
   }
 
   public boolean isAlive() {
