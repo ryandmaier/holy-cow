@@ -68,11 +68,13 @@ public class MainWindow extends JFrame {
 
   public void removeEntity(Entity e) {
     mainView.remove(e);
-    pointValue++;
-    mainView.remove(points);
-    points.setText("Points: " + pointValue);
-    this.add(points, BorderLayout.NORTH);
   }
 
+  public void addPoints()
+  {
+    pointValue++;
+    points.setText("Points: " + pointValue);
+    this.add(points, BorderLayout.NORTH);      
+  }
 }
 
