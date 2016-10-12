@@ -17,6 +17,8 @@ public class MainWindow extends JFrame {
 
   int width;
   int height;
+  JLabel points;
+  int pointValue;
 
   public MainWindow(int width, int height) {
     super("Holy Cow!");
@@ -24,6 +26,14 @@ public class MainWindow extends JFrame {
     this.width = width;
     this.height = height;
 
+    pointValue=0;
+    points = new JLabel("Points: " + pointValue);
+    points.setVisible(true);
+    //points.setOpaque(true);
+    points.setForeground(Color.BLUE);           
+    points.setLocation(width/2-100,10);
+    points.setFont(new Font("newFont",0,30));
+    points.setSize(points.getPreferredSize());
 
     initWindow();
     this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -40,9 +50,11 @@ public class MainWindow extends JFrame {
 
     BackgroundComponent bg = new BackgroundComponent(width, height);
     bg.setBounds(0,0, width, height);
-    mainView.add(bg, 0);
+    mainView.add(bg,1);
 
-
+    //mainView.add(points,0);
+    
+    this.add(points, BorderLayout.NORTH);
     this.add(mainView, BorderLayout.CENTER);
 
     this.pack();
@@ -56,6 +68,10 @@ public class MainWindow extends JFrame {
 
   public void removeEntity(Entity e) {
     mainView.remove(e);
+    pointValue++;
+    mainView.remove(points);
+    points.setText("Points: " + pointValue);
+    this.add(points, BorderLayout.NORTH);
   }
 
 }
